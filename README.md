@@ -8,4 +8,4 @@ usuario, aeronave, dispositivo, gnss, telemetria_sensor, area_voo, eventos
 // separar em varios arquivos 
 // trigger 
 // fitro json sensor
-// 
+// vou arrumar essa bomba dps, sorry
