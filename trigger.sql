@@ -3,14 +3,20 @@ RETURNS trigger AS $usuario_trigger$
 DECLARE 
     voo_id_att INT8;
     decolou BOOLEAN;
+    primeiro BOOLEAN;
+    dentro_area BOOLEAN;
+    dentro_area_ultimo_ponto BOOLEAN;
+    trajeto_percorrido_atual geometry(LineString, 4326);
 BEGIN
-    SELECT id INTO voo_id_att
+    primeiro := FALSE;
+    SELECT id, trajeto_percorrido INTO voo_id_att, trajeto_percorrido_atual
     FROM voo
     WHERE aeronave_id = NEW.aeronave_id AND final_voo IS NULL
     ORDER BY inicio_voo DESC LIMIT 1;
 
     IF voo_id_att IS NULL THEN
-        IF NEW.velocidade > 0 THEN -- Para não criar voo com avião parado
+        primeiro := TRUE;
+        IF NEW.velocidade > 0 THEN -- Para não criar voo com avião parado (nao testei)
             INSERT INTO voo(aeronave_id, dispositivo_id, inicio_voo, trajeto_percorrido)
             VALUES (NEW.aeronave_id, NEW.dispositivo_id, NEW.momento_coleta, ST_MakeLine(NEW.ponto, NEW.ponto))
             RETURNING id INTO voo_id_att;
@@ -45,6 +51,44 @@ BEGIN
             INSERT INTO evento (momento_evento, evento, aeronave_id, dispositivo_id, voo_id)
             VALUES(NEW.momento_coleta, 'DECOLAGEM', NEW.aeronave_id, NEW.dispositivo_id, voo_id_att);
         END IF; 
+    END IF;
+
+    --======================================================================================================
+
+    SELECT EXISTS 1 (
+        SELECT geom, aeronave_id 
+        FROM area_voo
+        WHERE aeronave_id = NEW.aeronave_id AND ST_Intersects(NEW.ponto, geom)
+    );
+
+    dentro_area := FOUND;
+
+    IF primeiro THEN
+        IF dentro_area IS TRUE THEN
+            INSERT INTO evento (momento_evento, evento, aeronave_id, dispositivo_id, voo_id)
+            VALUES(NEW.momento_coleta, 'DENTRO DE ZONA AUTORIZADA', NEW.aeronave_id, NEW.dispositivo_id, voo_id_att);
+        ELSIF 
+            INSERT INTO evento (momento_evento, evento, aeronave_id, dispositivo_id, voo_id)
+            VALUES(NEW.momento_coleta, 'FORA DE ZONA AUTORIZADA', NEW.aeronave_id, NEW.dispositivo_id, voo_id_att);
+        END IF;
+    
+        RETURN NEW;
+    END IF;
+
+    SELECT EXISTS 1 (
+        SELECT geom, aeronave_id 
+        FROM area_voo
+        WHERE aeronave_id = NEW.aeronave_id AND ST_Intersects(ST_EndPoint(trajeto_percorrido_atual), geom)
+    );
+    
+    dentro_area_ultimo_ponto := FOUND;
+   
+    IF dentro_area IS TRUE AND dentro_area_ultimo_ponto IS FALSE THEN
+        INSERT INTO evento (momento_evento, evento, aeronave_id, dispositivo_id, voo_id)
+        VALUES(NEW.momento_coleta, 'DENTRO DE ZONA AUTORIZADA', NEW.aeronave_id, NEW.dispositivo_id, voo_id_att);
+    ELSIF dentro_area IS FALSE AND dentro_area_ultimo_ponto IS TRUE      
+        INSERT INTO evento (momento_evento, evento, aeronave_id, dispositivo_id, voo_id)
+        VALUES(NEW.momento_coleta, 'FORA DE ZONA AUTORIZADA', NEW.aeronave_id, NEW.dispositivo_id, voo_id_att);
     END IF;
 
     RETURN NEW;
