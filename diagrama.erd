@@ -34,7 +34,8 @@
       "03h4m5tj3pwk4wv9apcn2uy2j",
       "03h4m5zqnve7sfcwle48gxwku",
       "03h4m62dlsa4jp6b9lveh9b8k",
-      "03h4m64m8axy6glnsv027cu66"
+      "03h4m64m8axy6glnsv027cu66",
+      "03h90wobd7mgepylk3xvycszq"
     ],
     "relationshipIds": [
       "03h64pif9cl2qrfssbip6sps8",
@@ -46,7 +47,10 @@
       "03h64smtg77y59p9b74eiw175",
       "03h64w1hqptwf9eyfddv3dp49",
       "03h64wbs50ebznpre4022m4ou",
-      "03h8qls5wn79att04tez1th2g"
+      "03h8qls5wn79att04tez1th2g",
+      "03h90xwlopwvtvw3zl94trynu",
+      "03h90xxf7ki2261dfti5c944v",
+      "03h9194ccnavnlta8impbg7zu"
     ]
   },
   "collections": {
@@ -61,8 +65,8 @@
           "03h64hvn6tpntnjck0oy1y4qy"
         ],
         "ui": {
-          "x": -252.8258,
-          "y": -509.6937
+          "x": -79.6576,
+          "y": -523.1082
         }
       },
       "03h4m5ge12l6v1si9azriqrr8": {
@@ -109,8 +113,8 @@
           "03h64sfqdi2erh8z6v62t3nfb"
         ],
         "ui": {
-          "x": 513.0693,
-          "y": -540.9876
+          "x": 521.2883,
+          "y": -542.3575
         }
       },
       "03h4m5zqnve7sfcwle48gxwku": {
@@ -124,8 +128,8 @@
           "03h64siwlrb1vbijqciy0tl4b"
         ],
         "ui": {
-          "x": 965.7916,
-          "y": -459.5955
+          "x": 1055.0523,
+          "y": -441.0472
         }
       },
       "03h4m62dlsa4jp6b9lveh9b8k": {
@@ -137,23 +141,40 @@
           "03h4m63rqd8my2gz07kzbhi55"
         ],
         "ui": {
-          "x": -381.2295,
-          "y": -787.1075
+          "x": 40.7222,
+          "y": -1006.6194
         }
       },
       "03h4m64m8axy6glnsv027cu66": {
         "id": "03h4m64m8axy6glnsv027cu66",
-        "name": "eventos",
+        "name": "evento",
         "columnIds": [
           "03h4m65gxj9a4i4m5modricb7",
           "03h64o677stbbyrvxjnjs7829",
           "03h8qq7ceftcnomgw48l92145",
           "03h64sjsqhf4gjlkhl0kn2awq",
-          "03h64smtg77y59p9b735z0k93"
+          "03h64smtg77y59p9b735z0k93",
+          "03h9194ccnavnlta8ilj95mci"
         ],
         "ui": {
-          "x": 1463.6891,
-          "y": -389.5406
+          "x": 1647.9365,
+          "y": -322.0406
+        }
+      },
+      "03h90wobd7mgepylk3xvycszq": {
+        "id": "03h90wobd7mgepylk3xvycszq",
+        "name": "voo",
+        "columnIds": [
+          "03h90wr9kebi18tb20u90wiw4",
+          "03h90wtd2t93l8eqp055nd4qn",
+          "03h90wwr3s42t2ufhhfvdwk5s",
+          "03h90wystbz1ng14ek4kadfwn",
+          "03h90xwlopwvtvw3zl695c4dv",
+          "03h90xxf7ki2261dftgy8ooc5"
+        ],
+        "ui": {
+          "x": -260.8841,
+          "y": 144.5513
         }
       }
     },
@@ -274,7 +295,7 @@
         "id": "03h64netrpglxn9zdqp2hqkzi",
         "tableId": "03h4m5tj3pwk4wv9apcn2uy2j",
         "name": "ponto",
-        "dataType": "point",
+        "dataType": "geometry(Point, 4326)",
         "options": 0
       },
       "03h64nfn9skzcmwbqtjdz4xcs": {
@@ -351,7 +372,7 @@
         "id": "03h4m63rqd8my2gz07kzbhi55",
         "tableId": "03h4m62dlsa4jp6b9lveh9b8k",
         "name": "geom",
-        "dataType": "polygon",
+        "dataType": "geometry(Polygon, 4326)",
         "options": 8
       },
       "03h64msha0vadkx751dau0fxw": {
@@ -401,6 +422,55 @@
         "tableId": "03h4m64m8axy6glnsv027cu66",
         "name": "evento",
         "dataType": "varchar(300)",
+        "options": 8
+      },
+      "03h9194ccnavnlta8ilj95mci": {
+        "id": "03h9194ccnavnlta8ilj95mci",
+        "tableId": "03h4m64m8axy6glnsv027cu66",
+        "name": "voo_id",
+        "dataType": "bigint",
+        "options": 8
+      },
+      "03h90wr9kebi18tb20u90wiw4": {
+        "id": "03h90wr9kebi18tb20u90wiw4",
+        "tableId": "03h90wobd7mgepylk3xvycszq",
+        "name": "id",
+        "dataType": "serial8",
+        "options": 10
+      },
+      "03h90wtd2t93l8eqp055nd4qn": {
+        "id": "03h90wtd2t93l8eqp055nd4qn",
+        "tableId": "03h90wobd7mgepylk3xvycszq",
+        "name": "inicio_voo",
+        "dataType": "timestamp",
+        "options": 8
+      },
+      "03h90wwr3s42t2ufhhfvdwk5s": {
+        "id": "03h90wwr3s42t2ufhhfvdwk5s",
+        "tableId": "03h90wobd7mgepylk3xvycszq",
+        "name": "final_voo",
+        "dataType": "timestamp",
+        "options": 0
+      },
+      "03h90wystbz1ng14ek4kadfwn": {
+        "id": "03h90wystbz1ng14ek4kadfwn",
+        "tableId": "03h90wobd7mgepylk3xvycszq",
+        "name": "trajeto_percorrido",
+        "dataType": "geometry(LineString, 4326)",
+        "options": 0
+      },
+      "03h90xwlopwvtvw3zl695c4dv": {
+        "id": "03h90xwlopwvtvw3zl695c4dv",
+        "tableId": "03h90wobd7mgepylk3xvycszq",
+        "name": "aeronave_id",
+        "dataType": "integer",
+        "options": 8
+      },
+      "03h90xxf7ki2261dftgy8ooc5": {
+        "id": "03h90xxf7ki2261dftgy8ooc5",
+        "tableId": "03h90wobd7mgepylk3xvycszq",
+        "name": "dispositivo_id",
+        "dataType": "integer",
         "options": 8
       }
     },
@@ -582,6 +652,60 @@
           "tableId": "03h4m5ge12l6v1si9azriqrr8",
           "columnIds": [
             "03h8qls5wn79att04td7j3r6c"
+          ]
+        }
+      },
+      "03h90xwlopwvtvw3zl94trynu": {
+        "id": "03h90xwlopwvtvw3zl94trynu",
+        "relationshipType": 4,
+        "onDelete": 1,
+        "onUpdate": 1,
+        "start": {
+          "tableId": "03h4m5ge12l6v1si9azriqrr8",
+          "columnIds": [
+            "03h4m5jvjt937d5rtjsuvwti8"
+          ]
+        },
+        "end": {
+          "tableId": "03h90wobd7mgepylk3xvycszq",
+          "columnIds": [
+            "03h90xwlopwvtvw3zl695c4dv"
+          ]
+        }
+      },
+      "03h90xxf7ki2261dfti5c944v": {
+        "id": "03h90xxf7ki2261dfti5c944v",
+        "relationshipType": 4,
+        "onDelete": 1,
+        "onUpdate": 1,
+        "start": {
+          "tableId": "03h4m5kc8fd5zj0bmcon4pqdt",
+          "columnIds": [
+            "03h4m5m2n1gxizqvugntcg44x"
+          ]
+        },
+        "end": {
+          "tableId": "03h90wobd7mgepylk3xvycszq",
+          "columnIds": [
+            "03h90xxf7ki2261dftgy8ooc5"
+          ]
+        }
+      },
+      "03h9194ccnavnlta8impbg7zu": {
+        "id": "03h9194ccnavnlta8impbg7zu",
+        "relationshipType": 4,
+        "onDelete": 1,
+        "onUpdate": 1,
+        "start": {
+          "tableId": "03h90wobd7mgepylk3xvycszq",
+          "columnIds": [
+            "03h90wr9kebi18tb20u90wiw4"
+          ]
+        },
+        "end": {
+          "tableId": "03h4m64m8axy6glnsv027cu66",
+          "columnIds": [
+            "03h9194ccnavnlta8ilj95mci"
           ]
         }
       }

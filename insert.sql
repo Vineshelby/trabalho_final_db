@@ -4,19 +4,19 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
 
 INSERT INTO usuario (id, nome, email, telefone) VALUES
-(1, 'Marcus', 'marucusalmeida@agrotec.com.br', '65999990000')
+(1, 'Marcus', 'marucusalmeida@agrotec.com.br', '65999990000');
 
 
 INSERT INTO aeronave (id, prefixo, modelo, fabricante, ano_fabricacao, usuario_id) VALUES
 (1, 'PT-UAA', 'EMB-202A Ipanema', 'Embraer', '2020-05-10', 1),
 (2, 'PR-AGB', 'AT-502B', 'Air Tractor', '2022-08-15', 1),
-(3, 'PS-AGC', 'Thrush 510P', 'Thrush Aircraft', '2023-02-20', 1)
+(3, 'PS-AGC', 'Thrush 510P', 'Thrush Aircraft', '2023-02-20', 1);
 
 
 INSERT INTO dispositivo (id, modelo, ano_fabricacao, usuario_id, aeronave_id) VALUES
 (1, 'ESP32-GNSS-v1', '2026-01-10', 1, 1),
 (2, 'ESP32-GNSS-v1', '2026-01-10', 1, 2),
-(3, 'ESP32-GNSS-v2', '2026-08-11', 1, 3)
+(3, 'ESP32-GNSS-v2', '2026-08-11', 1, 3);
 
 
 /*
@@ -64,7 +64,7 @@ INSERT INTO area_voo (aeronave_id, geom) VALUES
 -- VOO 1 | Aeronave 1, Dispositivo 1 (129 pontos)
 -- ----------------------------------------------------------------------------
 INSERT INTO gnss (momento_coleta, ponto, velocidade, altitude, aeronave_id, dispositivo_id) VALUES
-('2026-11-15 06:00:00', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980097,-13.13627]}'), 4326), 65.00, 390.00, 1, 1),
+('2026-11-15 06:00:00', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980097,-13.13627]}'), 4326), 0, 390.00, 1, 1),
 ('2026-11-15 06:00:05', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.98,-13.134889]}'), 4326), 82.00, 390.00, 1, 1),
 ('2026-11-15 06:00:10', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980153,-13.133678]}'), 4326), 95.00, 390.00, 1, 1),
 ('2026-11-15 06:00:15', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980494,-13.131808]}'), 4326), 180.00, 400.00, 1, 1),
@@ -192,7 +192,7 @@ INSERT INTO gnss (momento_coleta, ponto, velocidade, altitude, aeronave_id, disp
 ('2026-11-15 06:10:25', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.979892,-13.133591]}'), 4326), 180.00, 400.00, 1, 1),
 ('2026-11-15 06:10:30', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980042,-13.134633]}'), 4326), 92.00, 390.00, 1, 1),
 ('2026-11-15 06:10:35', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980031,-13.135703]}'), 4326), 75.00, 390.00, 1, 1),
-('2026-11-15 06:10:40', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980082,-13.136373]}'), 4326), 55.00, 390.00, 1, 1);
+('2026-11-15 06:10:40', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980082,-13.136373]}'), 4326), 0.00, 390.00, 1, 1);
 
 -- ----------------------------------------------------------------------------
 -- VOO 2 | Aeronave 1, Dispositivo 1 (82 pontos)
@@ -279,7 +279,7 @@ INSERT INTO gnss (momento_coleta, ponto, velocidade, altitude, aeronave_id, disp
 ('2026-11-15 08:06:30', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.981112,-13.130752]}'), 4326), 180.00, 400.00, 1, 1),
 ('2026-11-15 08:06:35', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980159,-13.133241]}'), 4326), 92.00, 390.00, 1, 1),
 ('2026-11-15 08:06:40', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.979885,-13.134987]}'), 4326), 75.00, 390.00, 1, 1),
-('2026-11-15 08:06:45', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.979889,-13.13593]}'), 4326), 55.00, 390.00, 1, 1);
+('2026-11-15 08:06:45', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.979889,-13.13593]}'), 4326), 0.00, 390.00, 1, 1);
 
 -- ----------------------------------------------------------------------------
 -- VOO 3 | Aeronave 2, Dispositivo 2 (107 pontos)
@@ -391,7 +391,7 @@ INSERT INTO gnss (momento_coleta, ponto, velocidade, altitude, aeronave_id, disp
 ('2026-11-15 10:08:35', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980159,-13.131858]}'), 4326), 180.00, 400.00, 2, 2),
 ('2026-11-15 10:08:40', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980038,-13.133276]}'), 4326), 92.00, 390.00, 2, 2),
 ('2026-11-15 10:08:45', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980038,-13.134537]}'), 4326), 75.00, 390.00, 2, 2),
-('2026-11-15 10:08:50', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.979876,-13.136074]}'), 4326), 55.00, 390.00, 2, 2);
+('2026-11-15 10:08:50', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.979876,-13.136074]}'), 4326), 0.00, 390.00, 2, 2);
 
 -- ----------------------------------------------------------------------------
 -- VOO 4 | Aeronave 2, Dispositivo 2 (81 pontos)
@@ -477,7 +477,7 @@ INSERT INTO gnss (momento_coleta, ponto, velocidade, altitude, aeronave_id, disp
 ('2026-11-15 14:06:25', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.981875,-13.129922]}'), 4326), 180.00, 400.00, 2, 2),
 ('2026-11-15 14:06:30', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980531,-13.131418]}'), 4326), 92.00, 390.00, 2, 2),
 ('2026-11-15 14:06:35', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980403,-13.133911]}'), 4326), 75.00, 390.00, 2, 2),
-('2026-11-15 14:06:40', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980147,-13.135718]}'), 4326), 55.00, 390.00, 2, 2);
+('2026-11-15 14:06:40', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980147,-13.135718]}'), 4326), 0.00, 390.00, 2, 2);
 
 -- ----------------------------------------------------------------------------
 -- VOO 5 | Aeronave 3, Dispositivo 3 (102 pontos)
@@ -584,4 +584,4 @@ INSERT INTO gnss (momento_coleta, ponto, velocidade, altitude, aeronave_id, disp
 ('2026-11-15 16:08:10', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980255,-13.125203]}'), 4326), 180.00, 400.00, 3, 3),
 ('2026-11-15 16:08:15', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980581,-13.128062]}'), 4326), 92.00, 390.00, 3, 3),
 ('2026-11-15 16:08:20', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980581,-13.131556]}'), 4326), 75.00, 390.00, 3, 3),
-('2026-11-15 16:08:25', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980255,-13.135685]}'), 4326), 55.00, 390.00, 3, 3);
+('2026-11-15 16:08:25', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980255,-13.135685]}'), 4326), 0.00, 390.00, 3, 3);

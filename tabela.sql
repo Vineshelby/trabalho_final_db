@@ -56,15 +56,16 @@ CREATE TABLE IF NOT EXISTS dispositivo
     REFERENCES usuario (id)
 );
 
-CREATE TABLE IF NOT EXISTS eventos
+CREATE TABLE IF NOT EXISTS voo
 (
-  id              serial8       NOT NULL,
-  momento_evento  timestamp     NOT NULL,
-  evento          varchar(300)  NOT NULL,
-  aeronave_id     integer       NOT NULL,
-  dispositivo_id  integer       NOT NULL,
-  
-  CONSTRAINT pk_eventos PRIMARY KEY (id),
+  id                 serial8                    NOT NULL,
+  inicio_voo         timestamp                  NOT NULL,
+  final_voo          timestamp                  NULL    ,
+  trajeto_percorrido geometry(LineString, 4326) NOT NULL,
+  aeronave_id        integer                    NOT NULL,
+  dispositivo_id     integer                    NOT NULL,
+
+  CONSTRAINT pk_voo PRIMARY KEY (id),
 
   CONSTRAINT fk_aeronave
     FOREIGN KEY (aeronave_id)
@@ -73,6 +74,30 @@ CREATE TABLE IF NOT EXISTS eventos
   CONSTRAINT fk_dispositivo
     FOREIGN KEY (dispositivo_id)
     REFERENCES dispositivo (id)
+);
+
+CREATE TABLE IF NOT EXISTS evento
+(
+  id              serial8       NOT NULL,
+  momento_evento  timestamp     NOT NULL,
+  evento          varchar(300)  NOT NULL,
+  aeronave_id     integer       NOT NULL,
+  dispositivo_id  integer       NOT NULL,
+  voo_id          integer8      NOT NULL,
+  
+  CONSTRAINT pk_evento PRIMARY KEY (id),
+
+  CONSTRAINT fk_aeronave
+    FOREIGN KEY (aeronave_id)
+    REFERENCES aeronave (id),
+
+  CONSTRAINT fk_dispositivo
+    FOREIGN KEY (dispositivo_id)
+    REFERENCES dispositivo (id)
+
+  CONSTRAINT fk_voo
+    FOREIGN KEY (voo_id)
+    REFERENCES voo (id)
 );
 
 CREATE TABLE IF NOT EXISTS gnss
