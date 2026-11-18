@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS evento
   evento          varchar(300)  NOT NULL,
   aeronave_id     integer       NOT NULL,
   dispositivo_id  integer       NOT NULL,
-  voo_id          integer8      NOT NULL,
+  voo_id          int8          NOT NULL,
   
   CONSTRAINT pk_evento PRIMARY KEY (id),
 
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS evento
 
   CONSTRAINT fk_dispositivo
     FOREIGN KEY (dispositivo_id)
-    REFERENCES dispositivo (id)
+    REFERENCES dispositivo (id),
 
   CONSTRAINT fk_voo
     FOREIGN KEY (voo_id)

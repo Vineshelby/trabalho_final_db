@@ -55,19 +55,18 @@ BEGIN
 
     --======================================================================================================
 
-    SELECT EXISTS 1 (
-        SELECT geom, aeronave_id 
+    SELECT EXISTS (
+        SELECT 1
         FROM area_voo
         WHERE aeronave_id = NEW.aeronave_id AND ST_Intersects(NEW.ponto, geom)
-    );
+    ) INTO dentro_area;
 
-    dentro_area := FOUND;
 
     IF primeiro THEN
         IF dentro_area IS TRUE THEN
             INSERT INTO evento (momento_evento, evento, aeronave_id, dispositivo_id, voo_id)
             VALUES(NEW.momento_coleta, 'DENTRO DE ZONA AUTORIZADA', NEW.aeronave_id, NEW.dispositivo_id, voo_id_att);
-        ELSIF 
+        ELSE
             INSERT INTO evento (momento_evento, evento, aeronave_id, dispositivo_id, voo_id)
             VALUES(NEW.momento_coleta, 'FORA DE ZONA AUTORIZADA', NEW.aeronave_id, NEW.dispositivo_id, voo_id_att);
         END IF;
@@ -75,18 +74,17 @@ BEGIN
         RETURN NEW;
     END IF;
 
-    SELECT EXISTS 1 (
-        SELECT geom, aeronave_id 
+    SELECT EXISTS (
+        SELECT 1
         FROM area_voo
         WHERE aeronave_id = NEW.aeronave_id AND ST_Intersects(ST_EndPoint(trajeto_percorrido_atual), geom)
-    );
+    )INTO dentro_area_ultimo_ponto;
     
-    dentro_area_ultimo_ponto := FOUND;
    
     IF dentro_area IS TRUE AND dentro_area_ultimo_ponto IS FALSE THEN
         INSERT INTO evento (momento_evento, evento, aeronave_id, dispositivo_id, voo_id)
         VALUES(NEW.momento_coleta, 'DENTRO DE ZONA AUTORIZADA', NEW.aeronave_id, NEW.dispositivo_id, voo_id_att);
-    ELSIF dentro_area IS FALSE AND dentro_area_ultimo_ponto IS TRUE      
+    ELSIF dentro_area IS FALSE AND dentro_area_ultimo_ponto IS TRUE THEN 
         INSERT INTO evento (momento_evento, evento, aeronave_id, dispositivo_id, voo_id)
         VALUES(NEW.momento_coleta, 'FORA DE ZONA AUTORIZADA', NEW.aeronave_id, NEW.dispositivo_id, voo_id_att);
     END IF;
