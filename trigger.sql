@@ -9,6 +9,15 @@ DECLARE
     trajeto_percorrido_atual geometry(LineString, 4326);
 BEGIN
     primeiro := FALSE;
+
+    IF NOT EXISTS (
+        SELECT 1 FROM dispositivo
+        WHERE id = NEW.dispositivo_id AND aeronave_id = NEW.aeronave_id
+    ) THEN
+        RAISE EXCEPTION 'Erro: O dispositivo % não está instalado na aeronave %!', NEW.dispositivo_id, NEW.aeronave_id;
+    END IF;
+
+
     SELECT id, trajeto_percorrido INTO voo_id_att, trajeto_percorrido_atual
     FROM voo
     WHERE aeronave_id = NEW.aeronave_id AND final_voo IS NULL
@@ -16,7 +25,7 @@ BEGIN
 
     IF voo_id_att IS NULL THEN
         primeiro := TRUE;
-        IF NEW.velocidade > 0 THEN -- Para não criar voo com avião parado (nao testei)
+        IF NEW.velocidade > 0 THEN 
             INSERT INTO voo(aeronave_id, dispositivo_id, inicio_voo, trajeto_percorrido)
             VALUES (NEW.aeronave_id, NEW.dispositivo_id, NEW.momento_coleta, ST_MakeLine(NEW.ponto, NEW.ponto))
             RETURNING id INTO voo_id_att;
