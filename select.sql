@@ -1,6 +1,7 @@
 -- Consultar ultimos 10 eventos aeronave
 SELECT * FROM vw_eventos_aeronave 
-WHERE aeronave_id = 2 
+WHERE aeronave_id = 1
+ORDER BY evento_id DESC
 LIMIT 10;
 
 -- Consultar estatísticas aeronave
