@@ -108,5 +108,42 @@ FOR EACH ROW
 EXECUTE PROCEDURE atualizar_voo();
 
 
+-- Trigger sensor
+
+CREATE OR REPLACE FUNCTION verificar_telemetria_sensor()
+RETURNS trigger AS $sensor_trigger$
+DECLARE
+    voo_id_att INT8;
+    moduloAcel NUMERIC;
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM dispositivo
+        WHERE id = NEW.dispositivo_id AND aeronave_id = NEW.aeronave_id
+    ) THEN
+        RAISE EXCEPTION 'Erro: O dispositivo % não está instalado na aeronave %!', NEW.dispositivo_id, NEW.aeronave_id;
+    END IF;
+    
+    
+    SELECT id INTO voo_id_att
+    FROM voo
+    WHERE aeronave_id = NEW.aeronave_id AND final_voo IS NULL
+    ORDER BY inicio_voo DESC LIMIT 1;
+    
+    moduloAcel := (NEW.pacote->>'modulo_acel')::NUMERIC;
+    -- Acima de 2G registra IMPACTO DETECTADO
+
+    IF moduloAcel IS NOT NULL AND moduloAcel > 2 THEN
+        INSERT INTO evento (momento_evento, evento, aeronave_id, dispositivo_id, voo_id)
+        VALUES (NEW.momento_coleta, 'IMPACTO DETECTADO', NEW.aeronave_id, NEW.dispositivo_id, voo_id_att);
+    END IF;
+
+    RETURN NEW;
+END;
+$sensor_trigger$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_telemetria_sensor
+AFTER INSERT ON telemetria_sensor
+FOR EACH ROW
+EXECUTE PROCEDURE verificar_telemetria_sensor();
 
 

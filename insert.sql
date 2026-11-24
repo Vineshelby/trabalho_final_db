@@ -124,7 +124,14 @@ INSERT INTO gnss (momento_coleta, ponto, velocidade, altitude, aeronave_id, disp
 ('2026-11-15 06:04:45', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-56.025568,-13.130621]}'), 4326), 180.00, 400.00, 1, 1),
 ('2026-11-15 06:04:50', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-56.023258,-13.13099]}'), 4326), 180.00, 400.00, 1, 1),
 ('2026-11-15 06:04:55', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-56.020952,-13.131002]}'), 4326), 180.00, 400.00, 1, 1),
-('2026-11-15 06:05:00', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-56.01926,-13.130444]}'), 4326), 180.00, 400.00, 1, 1),
+('2026-11-15 06:05:00', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-56.01926,-13.130444]}'), 4326), 180.00, 400.00, 1, 1);
+
+-- Telemetria do sensor durante o Voo 1 (voo aberto -> voo_id = 1)
+INSERT INTO telemetria_sensor (pacote, momento_coleta, aeronave_id, dispositivo_id) VALUES
+('{"modulo_acel": 1.05}', '2026-11-15 06:05:01', 1, 1),
+('{"modulo_acel": 2.65}', '2026-11-15 06:05:02', 1, 1);
+
+INSERT INTO gnss (momento_coleta, ponto, velocidade, altitude, aeronave_id, dispositivo_id) VALUES
 ('2026-11-15 06:05:05', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-56.020066,-13.129646]}'), 4326), 180.00, 400.00, 1, 1),
 ('2026-11-15 06:05:10', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-56.026586,-13.129345]}'), 4326), 180.00, 400.00, 1, 1),
 ('2026-11-15 06:05:15', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-56.029872,-13.129427]}'), 4326), 180.00, 400.00, 1, 1),
@@ -234,7 +241,13 @@ INSERT INTO gnss (momento_coleta, ponto, velocidade, altitude, aeronave_id, disp
 ('2026-11-15 08:02:45', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.995007,-13.114874]}'), 4326), 180.00, 400.00, 1, 1),
 ('2026-11-15 08:02:50', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.995727,-13.115478]}'), 4326), 180.00, 400.00, 1, 1),
 ('2026-11-15 08:02:55', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.997204,-13.112571]}'), 4326), 180.00, 400.00, 1, 1),
-('2026-11-15 08:03:00', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.997456,-13.110971]}'), 4326), 180.00, 400.00, 1, 1),
+('2026-11-15 08:03:00', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.997456,-13.110971]}'), 4326), 180.00, 400.00, 1, 1);
+
+-- Telemetria do sensor durante o Voo 2 (voo aberto -> voo_id = 2)
+INSERT INTO telemetria_sensor (pacote, momento_coleta, aeronave_id, dispositivo_id) VALUES
+('{"modulo_acel": 2.85}', '2026-11-15 08:03:02', 1, 1);
+
+INSERT INTO gnss (momento_coleta, ponto, velocidade, altitude, aeronave_id, dispositivo_id) VALUES
 ('2026-11-15 08:03:05', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.997362,-13.105729]}'), 4326), 180.00, 400.00, 1, 1),
 ('2026-11-15 08:03:10', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.997223,-13.104666]}'), 4326), 180.00, 400.00, 1, 1),
 ('2026-11-15 08:03:15', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.996843,-13.102226]}'), 4326), 180.00, 400.00, 1, 1),
@@ -585,3 +598,10 @@ INSERT INTO gnss (momento_coleta, ponto, velocidade, altitude, aeronave_id, disp
 ('2026-11-15 16:08:15', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980581,-13.128062]}'), 4326), 92.00, 390.00, 3, 3),
 ('2026-11-15 16:08:20', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980581,-13.131556]}'), 4326), 75.00, 390.00, 3, 3),
 ('2026-11-15 16:08:25', ST_SetSRID(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-55.980255,-13.135685]}'), 4326), 0.00, 390.00, 3, 3);
+
+-- ============================================================================
+-- 3. TELEMETRIA DO SENSOR FORA DE VOO (AERONAVES EM SOLO -> voo_id = NULL)
+-- ============================================================================
+INSERT INTO telemetria_sensor (pacote, momento_coleta, aeronave_id, dispositivo_id) VALUES
+('{"modulo_acel": 3.40}', '2026-11-15 11:00:00', 2, 2),
+('{"modulo_acel": 2.90}', '2026-11-15 17:30:00', 3, 3);
