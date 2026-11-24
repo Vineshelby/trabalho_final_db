@@ -429,7 +429,7 @@
         "tableId": "03h4m64m8axy6glnsv027cu66",
         "name": "voo_id",
         "dataType": "bigint",
-        "options": 8
+        "options": 0
       },
       "03h90wr9kebi18tb20u90wiw4": {
         "id": "03h90wr9kebi18tb20u90wiw4",
