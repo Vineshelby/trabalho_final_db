@@ -187,9 +187,3 @@ CALL alterar_dono_aeronave(1, 1);
 
 ### Visualizar Trajetos e Polígonos
 - **No QGIS**: Abra o arquivo `visualizacaoQGIS.qgz` conectado ao banco PostGIS na porta `5433`.
-- **No pgAdmin 4 / DBeaver**:
-  ```sql
-  SELECT 'Voo ' || id AS camada, trajeto_percorrido AS geom FROM voo
-  UNION ALL
-  SELECT 'Area ' || id AS camada, geom FROM area_voo;
-  ```

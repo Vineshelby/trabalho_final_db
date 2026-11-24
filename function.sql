@@ -27,7 +27,7 @@ BEGIN
     IF trajeto IS NULL THEN
         RETURN 0;
     END IF;
-    RETURN ST_Length(trajeto::geography)/1000;
+    RETURN ROUND((ST_Length(trajeto::geography)/1000)::numeric, 3);
 END;
 $$;
 
